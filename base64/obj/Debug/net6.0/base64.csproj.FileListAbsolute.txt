@@ -1,0 +1,15 @@
+C:\Users\韩思远\source\repos\base64\base64\bin\Debug\net6.0\base64.exe
+C:\Users\韩思远\source\repos\base64\base64\bin\Debug\net6.0\base64.deps.json
+C:\Users\韩思远\source\repos\base64\base64\bin\Debug\net6.0\base64.runtimeconfig.json
+C:\Users\韩思远\source\repos\base64\base64\bin\Debug\net6.0\base64.dll
+C:\Users\韩思远\source\repos\base64\base64\bin\Debug\net6.0\base64.pdb
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.csproj.AssemblyReference.cache
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.AssemblyInfoInputs.cache
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.AssemblyInfo.cs
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.csproj.CoreCompileInputs.cache
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.dll
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\refint\base64.dll
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.pdb
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\base64.genruntimeconfig.cache
+C:\Users\韩思远\source\repos\base64\base64\obj\Debug\net6.0\ref\base64.dll
