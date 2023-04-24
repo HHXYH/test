@@ -1,32 +1,22 @@
 ﻿using base64;
 using System.IO;
 
-using (StreamReader sr = new StreamReader("../../../file/8.png"))
+
+using(FileStream fs = new FileStream("../../../file/8.png", FileMode.OpenOrCreate, FileAccess.Read))
 {
-    string Text;
-    Text = sr.ReadToEnd();
-    string png = Base64Code.Encode(Text);
-    using (StreamWriter sw = new StreamWriter("../../../file/encodeimg.txt"))
+    byte[] buffer = new byte[fs.Length];
+    fs.Read(buffer,0,buffer.Length);
+    string encodefile=Base64Code.EncodeByByte(buffer);
+    using (StreamWriter sw = new StreamWriter("../../../file/8.txt"))
     {
-        sw.Write(png);
+        sw.Write(encodefile);
     }
 }
-
-using (StreamReader sr = new StreamReader("../../../file/encodeimg.txt"))
+using(StreamReader sr = new StreamReader("../../../file/8.txt"))
 {
-    string Text;
-    Text = sr.ReadToEnd();
-    string png = Base64Code.Decode(Text);
-    using (StreamWriter sw = new StreamWriter("../../../file/img.png"))
+    byte[] bytes=Base64Code.DecodeToByte( sr.ReadToEnd());
+    using(FileStream fs=new FileStream("../../../file/img1.png",FileMode.OpenOrCreate,FileAccess.Write))
     {
-        sw.Write(png);
+        fs.Write(bytes,0,bytes.Length);
     }
 }
-
-
-//string decodingString = "123132ajdflaa";
-//Console.WriteLine(Base64Code.Encode(decodingString));
-////MTIzMTMyYWpkZmxh
-////MTI=MTM=YW==Z===
-//string encodingString = "YWRzYXNkMzEzMTIxMg==";
-//Console.WriteLine(Base64Code.Decode(encodingString));
