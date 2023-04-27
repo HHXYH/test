@@ -12,7 +12,7 @@ namespace base64
     {
         #region 解码
         //base64对照表，转换base64字符成二进制数字
-        public static int TransformLetter(char letter)
+        public static int TransformTable(char letter)
         {
             switch (letter)
             {
@@ -92,7 +92,7 @@ namespace base64
             //四个数字一组
             for (int i = 0; i < 4; i++)
             {
-                numbers[i] = TransformLetter(letters[i]);
+                numbers[i] = TransformTable(letters[i]);
             }
             //重新分组计算原始的字符
             string firstchar= Convert.ToChar(numbers[0] << 2 | numbers[1]>>4).ToString();
@@ -105,6 +105,7 @@ namespace base64
         {
             //结果字符
             string transformString = "";
+            
             //分组次数
             int i = letters.Length / 4;
             //每次进行处理的小组
@@ -142,14 +143,26 @@ namespace base64
                 }
             }
             return transformString;
+           
+        }
+
+        public static byte[] DecodeToByte(string letters)
+        {
+            string transformString = Decode(letters);
+            byte[] bytes = new byte[transformString.Length];
+            for (int i = 0; i < transformString.Length; i++)
+            {
+                bytes[i] = Convert.ToByte(transformString[i]);
+            }
+            return bytes;
         }
         #endregion
 
         #region 编码
         //base64对照表
-        public static string TransformLetter(int number)
+        public static string TransformTable(int code)
         {
-            switch(number)
+            switch(code)
             {
                 case 0:return "A";
                 case 1 :return "B";
@@ -218,11 +231,11 @@ namespace base64
                 default: return "=";
             }
         }
+        
         public static string encodeTransformUnit(string letters)
         {
             int[] numbers = new int[4];
             int sumnum = letters[0] << 16 | letters[1] << 8 | letters[2];
-            
             numbers[0] = sumnum>>18;
             numbers[1] = sumnum<<14>>26&(0x0000003f);
             numbers[2] = sumnum<<20>>26 & (0x0000003f);
@@ -231,7 +244,7 @@ namespace base64
             string letterunit = "";
             for(int i=0;i<4;i++)
             {
-                letterunit += TransformLetter(numbers[i]);
+                letterunit += TransformTable(numbers[i]);
             }
             return letterunit;
         }
@@ -247,9 +260,9 @@ namespace base64
                     letterunit=letters.Substring(j*3,3);
                     encodingString += encodeTransformUnit(letterunit);
                 }
-                string char1 = TransformLetter(letters[letters.Length - 2] >> 2);
-                string char2 = TransformLetter((letters[letters.Length - 2] << 30 >> 26 & (0x0000003f)) | (letters[letters.Length - 1] >> 4 & (0x0000003f)));
-                string char3 = TransformLetter(letters[letters.Length - 1] << 28 >> 26 & (0x0000003f));
+                string char1 = TransformTable(letters[letters.Length - 2] >> 2);
+                string char2 = TransformTable((letters[letters.Length - 2] << 30 >> 26 & (0x0000003f)) | (letters[letters.Length - 1] >> 4 & (0x0000003f)));
+                string char3 = TransformTable(letters[letters.Length - 1] << 28 >> 26 & (0x0000003f));
                 encodingString += char1 + char2 + char3 + "=";
             }
             else if(letters.Length%3==1 )
@@ -259,8 +272,8 @@ namespace base64
                     letterunit = letters.Substring(j * 3, 3);
                     encodingString += encodeTransformUnit(letterunit);
                 }
-                string char1 = TransformLetter(letters[letters.Length - 1] >> 2);
-                string char2 = TransformLetter(letters[letters.Length - 1] << 30 >> 26 & (0x0000003f));
+                string char1 = TransformTable(letters[letters.Length - 1] >> 2);
+                string char2 = TransformTable(letters[letters.Length - 1] << 30 >> 26 & (0x0000003f));
                 encodingString += char1 + char2 + "=" + "=";
             }
             else
@@ -273,6 +286,16 @@ namespace base64
 
             }
             return encodingString;
+        }
+        public static string EncodeByByte(byte[] bytes)
+        {
+            string letters="";
+            for(int i=0;i<bytes.Length;i++)
+            {
+                letters += Convert.ToChar(bytes[i]).ToString();
+                
+            }
+            return Encode(letters);
         }
         #endregion
     }
